@@ -28,7 +28,6 @@ d3.csv("assets/data/data.csv")
     // ==============================
     demoData.forEach(function(data) {
       data.poverty = +data.poverty;
-      data.obesity = +data.obesity;
       data.healthcare = +data.healthcare;
     });
 
@@ -39,7 +38,7 @@ d3.csv("assets/data/data.csv")
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
-      .domain([0, d3.max(demoData, d => d.healthcare)])
+      .domain([2, d3.max(demoData, d => d.healthcare)])
       .range([height, 0]);
 
     // Step 3: Create axis functions
@@ -62,7 +61,7 @@ d3.csv("assets/data/data.csv")
     .data(demoData)
     .enter()
     .append("text")
-    .attr("dx", function(d){return -10})
+    .attr("dx", function(d){return -8})
     .attr("font-family", "times new roman")
     .attr("font-size", "10px")
     .attr("x", function(d){
@@ -79,7 +78,7 @@ d3.csv("assets/data/data.csv")
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "12")
+    .attr("r", "13")
     .attr("fill", "lightblue")
     .attr("opacity", ".5")
     .text(function(d){return d.abbr});
@@ -90,10 +89,10 @@ d3.csv("assets/data/data.csv")
     // ==============================
     var toolTip = d3.tip()
       .attr("class", "tooltip")
-      .offset([80, -60])
+      .offset([80, -70])
       .style("display", "block")
       .html(function(d) {
-        return (`<p style="background-color: grey; margin-left: 10px;">${d.state}<br>Poverty: ${d.poverty} %<br>Obesity: ${d.obesity} %</p>`);
+        return (`<p style="background-color: lightblue; margin-left: 10px;">${d.state}<br>Poverty: ${d.poverty} %<br>Healthcare: ${d.healthcare} %</p>`);
       });
 
     // Step 7: Create tooltip in the chart
